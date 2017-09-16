@@ -123,7 +123,7 @@ sudo dpkg -i google-earth-stable*.deb > /dev/null 2>&1
 rm google-earth-stable*.deb
 
 echo "Setting up RAM disk for Google Earth cache"
-mkdir $HOME/.googleearth/Cache/
+mkdir -p $HOME/.googleearth/Cache/
 sudo cp /etc/fstab /etc/fstab.bak
 echo "tmpfs     "$HOME"/.googleearth/Cache     tmpfs     rw,size=2G,x-gvfs-show     0 0" | sudo tee -a /etc/fstab
 sudo mount -a
