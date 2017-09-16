@@ -125,10 +125,8 @@ rm google-earth-stable*.deb
 echo "Setting up RAM disk for Google Earth cache"
 mkdir -p $HOME/.googleearth/Cache/
 sudo cp /etc/fstab /etc/fstab.bak
-echo "tmpfs     "$HOME"/.googleearth/Cache     tmpfs     rw,size=2G,x-gvfs-show     0 0" | sudo tee -a /etc/fstab
+echo "tmpfs     "$HOME"/.googleearth/Cache     tmpfs     rw,size=2G,x-gvfs-show,gid=1000,uid=1000     0 0" | sudo tee -a /etc/fstab
 sudo mount -a
-sudo chown lg  $HOME/.googleearth/Cache 
-
 
 # OS config tweaks (like disabling idling, hiding launcher bar, ...)
 echo "Setting system configuration..."
