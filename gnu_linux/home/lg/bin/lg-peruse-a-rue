@@ -30,7 +30,8 @@ lg-ctl-master
 
 #GEScriptPID=$(pgrep run-earth-bin)
 #ssh -tt -x lg@lg1 "killall -q node; liquid-galaxy.lg-peruse-a-rue/bin/peruse-a-rue" &
-lg-run "killall -q run-earth-bin.sh; killall -q chromium-browser; killall -q googleearth-bin"
+#lg-run "killall -q run-earth-bin.sh; killall -q chromium-browser; killall -q googleearth-bin"
+lg-run "killall -q chromium-browser"
 
 for lg in $LG_FRAMES ; do
 	frame=$(($(echo $lg | cut -c 3)-1))
@@ -39,7 +40,7 @@ for lg in $LG_FRAMES ; do
 	    frame="$(( ${frame} - ${LG_FRAMES_MAX} ))"
 	fi
 
-	CMD0="export DISPLAY=:0 && chromium-browser $peruse_ip:$port/display/?"
+	CMD0="export DISPLAY=:0 && chromium-browser --incognito --noerordialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://$peruse_ip:$port/display/?"
 	if [[ $frame -eq 0 ]]
 	then
 		CMD=$CMD0"master=true&panoid=$panoid"
