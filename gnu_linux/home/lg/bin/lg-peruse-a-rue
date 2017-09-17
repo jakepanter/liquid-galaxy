@@ -13,17 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. ${HOME}/etc/shell.conf
+. /home/lg/etc/shell.conf
 
 [ -z "${LG_FRAMES}" ] && echo "LG_FRAMES is empty" && exit 1
 
-if [ $# -ne 2 ] ; then
-        echo "USAGE: $0 [Peruse Server IP]  [Port]"
+if [ $# -ne 3 ] ; then
+        echo "USAGE: $0 [Peruse Server IP] [Port] [Panoid]"
         exit 2
 fi
 
 peruse_ip=$1
 port=$2
+panoid=$3
 
 lg-ctl-master
 
@@ -41,9 +42,8 @@ for lg in $LG_FRAMES ; do
 	CMD0="export DISPLAY=:0 && chromium-browser $peruse_ip:$port/display/?"
 	if [[ $frame -eq 0 ]]
 	then
-		CMD=$CMD0"master=true"
+		CMD=$CMD0"master=true&panoid=$panoid"
 	else
-
 		CMD=$CMD0"yawoffset=$frame"
 	fi
 

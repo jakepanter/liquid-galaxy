@@ -25,7 +25,7 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   exec('/usr/bin/sudo -H -u lg /home/lg/bin/lg-sudo-bg service lightdm restart');
   echo "Attempting relaunch";
 } elseif (isset($_REQUEST['query']) and (preg_match('/^sview(.*)?/', $_REQUEST['query']))) {
-  $action = split('-', $_REQUEST['query']);
+  $action = explode('-', $_REQUEST['query']);
   if (($action[0] == $_REQUEST['query']) and !isset($action[1])) {
     exec('/usr/bin/sudo -H -u lg /home/lg/bin/lg-run-bg /home/lg/bin/streetview');
     echo "Attempting to load StreetView";
@@ -47,6 +47,15 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   } else {
     echo "Unknown command";
   } 
+  unset($action);
+} elseif (isset($_REQUEST['query']) and (preg_match('/^peruse(.*)?/', $_REQUEST['query']))) {
+  $action = explode('-', $_REQUEST['query']);
+  if (($action[0] == 'peruse') and isset($action[1])) {
+    exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);
+    echo "Attempting to load peruse a rue";
+  } else {
+    echo "Unknown command ";
+  }
   unset($action);
 } elseif (isset($_REQUEST['query']) and (preg_match('/^mpctl(.*)?/', $_REQUEST['query']))) {
   $action = split('-', $_REQUEST['query']);
@@ -72,7 +81,7 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
     exec('/usr/bin/sudo -H -u lg /home/lg/bin/mp-control stop');
     echo "MPlayer " . $action[1];
   } else {
-    echo "Unknown command";
+    echo "Unknown command ";
   } 
   unset($action);
 } elseif (isset($_REQUEST['query']) and ($_REQUEST['query'] != '') and isset($_REQUEST['name']) and ($_REQUEST['name'] != '')) {
