@@ -52,7 +52,7 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   $action = explode('-', $_REQUEST['query']);
     if (($action[0] == 'peruse') and isset($action[1])) {
         if ($action[1] == 'off') {
-            exec('/home/lg/bin/lg-show-earth');
+            exec('/home/lg/bin/lg-kill-chrome');
             echo "Attempting to show google earth again";
         } else {
             exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);

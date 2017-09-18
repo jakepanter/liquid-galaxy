@@ -40,17 +40,12 @@ for lg in $LG_FRAMES ; do
 	    frame="$(( ${frame} - ${LG_FRAMES_MAX} ))"
 	fi
 
-	CMD0="export DISPLAY=:0 && chromium-browser --incognito --noerordialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://$peruse_ip:$port/display/?"
 	if [[ $frame -eq 0 ]]
 	then
-		CMD=$CMD0"master=true&panoid=$panoid"
+		export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk "http://$peruse_ip:$port/display/?master=true&pano=$panoid" &
 	else
-		CMD=$CMD0"yawoffset=$frame"
+		ssh -x lg@$lg "export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk 'http://$peruse_ip:$port/display/?yawoffset=$frame'" &
 	fi
-
-#echo "$CMD"
-ssh -x lg@$lg "$CMD" &
-
 done
 
 exit 0

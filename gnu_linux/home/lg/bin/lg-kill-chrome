@@ -12,15 +12,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+##### lg-relaunch
+# Works with legacy (lxdm) or current (lightdm) display manager.
+export HOME=/home/lg
+source ${HOME}/etc/shell.conf
+PATH=/home/lg/bin:$PATH
 
-. /home/lg/etc/shell.conf
+lg-run "killall -q chromium-browser && export DISPLAY=:0 && wmctrl -a Earth"
 
-[ -z "${LG_FRAMES}" ] && echo "LG_FRAMES is empty" && exit 1
-
-lg-ctl-master
-
-lg-run "wmctrl -a Earth"
-
-done
-
-exit 0
