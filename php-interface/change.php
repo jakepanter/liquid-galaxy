@@ -50,12 +50,17 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   unset($action);
 } elseif (isset($_REQUEST['query']) and (preg_match('/^peruse(.*)?/', $_REQUEST['query']))) {
   $action = explode('-', $_REQUEST['query']);
-  if (($action[0] == 'peruse') and isset($action[1])) {
-    exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);
-    echo "Attempting to load peruse a rue";
-  } else {
-    echo "Unknown command ";
-  }
+    if (($action[0] == 'peruse') and isset($action[1])) {
+        if ($action[1] == 'off') {
+            exec('/home/lg/bin/lg-show-earth');
+            echo "Attempting to show google earth again";
+        } else {
+            exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);
+            echo "Attempting to load peruse a rue";
+        }
+    } else {
+        echo "Unknown command ";
+    }
   unset($action);
 } elseif (isset($_REQUEST['query']) and (preg_match('/^mpctl(.*)?/', $_REQUEST['query']))) {
   $action = split('-', $_REQUEST['query']);

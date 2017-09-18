@@ -113,7 +113,7 @@ sudo apt-get -qq upgrade > /dev/null
 sudo apt-get -qq dist-upgrade > /dev/null
 
 echo "Installing new packages..."
-sudo apt-get install -qq git chromium-browser nautilus openssh-server sshpass squid3 squid-cgi apache2 xdotool unclutter > /dev/null
+sudo apt-get install -qq git chromium-browser nautilus openssh-server sshpass squid3 squid-cgi apache2 xdotool unclutter wmctrl > /dev/null
 
 echo "Installing Google Earth..."
 wget -q $EARTH_DEB
