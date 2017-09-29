@@ -19,5 +19,12 @@ export HOME=/home/lg
 source ${HOME}/etc/shell.conf
 PATH=/home/lg/bin:$PATH
 
-lg-run "export DISPLAY=:0 && wmctrl -a Earth"
+[ -z "${LG_FRAMES}" ] && echo "LG_FRAMES is empty" && exit 1
+
+if [ $# -ne 1 ] ; then
+        echo "USAGE: $0 [Window name]"
+        exit 2
+fi
+
+lg-run "export DISPLAY=:0 && wmctrl -a $1"
 

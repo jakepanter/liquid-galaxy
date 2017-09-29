@@ -14,12 +14,11 @@
 # limitations under the License.
 
 if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) { 
-  $handle = @fopen("/tmp/query_php.txt", "w");
+  $handle = @fopen("/tmp/query.txt", "w");
   if ($handle) {
     fwrite($handle, "planet=" . $_REQUEST['planet']);
     fclose($handle);
   }
-  exec('/home/lg/chown_tmp_query');
   echo "Going to " . ucwords($_REQUEST['planet']);
 } elseif (isset($_REQUEST['query']) and ($_REQUEST['query'] == 'relaunch')) {
   exec('/usr/bin/sudo -H -u lg /home/lg/bin/lg-sudo-bg service lightdm restart');
@@ -52,10 +51,11 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   $action = explode('-', $_REQUEST['query']);
     if (($action[0] == 'peruse') and isset($action[1])) {
         if ($action[1] == 'off') {
-            exec('/home/lg/bin/lg-kill-chrome');
+            exec('/home/lg/bin/lg-show-window Earth');
             echo "Attempting to show google earth again";
         } else {
-            exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);
+            #exec('/home/lg/bin/lg-peruse-a-rue 10.42.42.1 99 '.$action[1]);
+            exec('/home/lg/bin/lg-show-window Chromium');
             echo "Attempting to load peruse a rue";
         }
     } else {
@@ -90,12 +90,11 @@ if (isset($_REQUEST['planet']) and ($_REQUEST['planet'] != '')) {
   } 
   unset($action);
 } elseif (isset($_REQUEST['query']) and ($_REQUEST['query'] != '') and isset($_REQUEST['name']) and ($_REQUEST['name'] != '')) {
-  $handle = @fopen("/tmp/query_php.txt", "w");
+  $handle = @fopen("/tmp/query.txt", "w");
   if ($handle) {
     fwrite($handle, $_REQUEST['query']);
     fclose($handle);
   }
-  exec('/home/lg/chown_tmp_query');
   echo "Going to " . $_REQUEST['name'];
 } elseif (isset($_REQUEST['layer']) and ($_REQUEST['layer'] != '') and isset($_REQUEST['name']) and ($_REQUEST['name'] != '')) {
 
