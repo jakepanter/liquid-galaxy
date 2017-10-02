@@ -16,33 +16,29 @@
 echo "DISPLAY = \"$DISPLAY\"."
 echo "DISPLAY_portion = \"${DISPLAY##*\.}\"."
 
-. ${HOME}/etc/shell.conf
+source ${HOME}/etc/shell.conf
 
 FRAME_NO="$(cat /home/lg/frame)"
 
 echo "MY FRAME = \"${FRAME_NO}\"."
 
 
-for lg in $LG_FRAMES ; do
-	frame=$(($(echo $lg | cut -c 3)-1))
-
 	if [[ ${frame} -gt $(( ${LG_FRAMES_MAX}/2 )) ]] ; then
 	    frame="$(( ${frame} - ${LG_FRAMES_MAX} ))"
 	fi
-
+	killall chromium-browser
 	if [[ $frame -eq 0 ]]
 	then
-		export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --start-fullscreen "http://lg8:99/display/?yawoffset=0" &
+		export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --start-fullscreen 'http://lg8:8086/display/?yawoffset=0' &
 	else
-		ssh -x lg@$lg "export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --start-fullscreen 'http://lg8:99/display/?yawoffset=$frame'" &
+		export DISPLAY=:0 && chromium-browser --incognito --noerrdialogs --disable-session-crashed-bubble --disable-infobars --start-fullscreen 'http://lg8:8086/display/?yawoffset='${frame} &
 	fi
-done
 
 if [[ $FRAME_NO = 0 ]]; then
-    ${HOME}/bin/spacenav-emitter /dev/input/by-id/usb-3Dconnexion_SpaceNavigator-event-if00 10.42.42.8 8086 &
     #nitrogen --set-zoom-fill ${XDG_PICTURES_DIR}/backgrounds/lg-bg-${FRAME_NO}.png &
     ${SCRIPDIR}/launch-earth.sh &
-    ${HOME}/bin/earth.tcl &
+    #sudo ${HOME}/bin/earth.tcl &
+    ${HOME}/bin/spacenav-emitter /dev/input/by-id/usb-3Dconnexion_SpaceNavigator-event-if00 10.42.42.8 8086 &
 elif [[ $FRAME_NO -ge 1 ]]; then
     #nitrogen --set-zoom-fill ${XDG_PICTURES_DIR}/backgrounds/lg-bg-${FRAME_NO}.png &
 echo "Slave: LG$((FRAME_NO+1))"

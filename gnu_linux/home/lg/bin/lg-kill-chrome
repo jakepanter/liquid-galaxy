@@ -19,5 +19,5 @@ export HOME=/home/lg
 source ${HOME}/etc/shell.conf
 PATH=/home/lg/bin:$PATH
 
-lg-run "export DISPLAY=:0 && wmctrl -a Earth"
+lg-run "killall chromium-browser"
 
