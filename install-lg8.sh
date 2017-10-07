@@ -194,8 +194,8 @@ sudo tee "/etc/iptables.conf" > /dev/null << EOM
 -A INPUT -s 10.42.0.0/16 -p udp -m udp --dport 161 -j ACCEPT
 -A INPUT -s 10.42.0.0/16 -p udp -m udp --dport 3401 -j ACCEPT
 -A INPUT -p tcp -m multiport --dports 81,8111 -j ACCEPT
--A INPUT -s 10.42.$OCTET.0/24 -p tcp -m multiport --dports 80,3128,3130 -j ACCEPT
--A INPUT -s 10.42.$OCTET.0/24 -p udp -m multiport --dports 80,3128,3130 -j ACCEPT
+-A INPUT -s 10.42.$OCTET.0/24 -p tcp -m multiport --dports 80,89,3128,3130,8086 -j ACCEPT
+-A INPUT -s 10.42.$OCTET.0/24 -p udp -m multiport --dports 80,89,3128,3130,8086 -j ACCEPT
 -A INPUT -s 10.42.$OCTET.0/24 -p tcp -m multiport --dports 9335 -j ACCEPT
 -A INPUT -s 10.42.$OCTET.0/24 -d 10.42.$OCTET.255/32 -p udp -j ACCEPT
 -A INPUT -j DROP
