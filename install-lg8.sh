@@ -212,6 +212,7 @@ EOM
 # Launch on boot
 mkdir -p $HOME/.config/autostart/
 echo -e "[Desktop Entry]\nName=LG\nExec=bash "$HOME"/bin/startup-script.sh\nType=Application" > $HOME"/.config/autostart/lg.desktop"
+echo -e "[Desktop Entry]\nName=Touchkiosk\nExec=chromium-browser --noerrdialogs --kiosk --incognito --disable-web-security http://localhost:4200/search" > $HOME"/.config/autostart/touchkiosk.desktop"
 
 
 # Cleanup
